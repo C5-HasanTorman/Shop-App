@@ -124,9 +124,46 @@ const updateProductById = (req, res) => {
   });
 };
 
+// delete Product
+const deleteProduct = (req, res) => {
+  const Product_id = req.params.id;
+  const owner_id = req.token.userId;
+
+  const query = `SELECT * FROM Products WHERE id=? AND is_deleted=0`;
+
+  const data = [Product_id, owner_id];
+
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        massage: "Server Error",
+        err: err.message,
+      });
+    }
+    if (!result.length) {
+      return res.status(404).json({
+        success: false,
+        massage: "Product is Not Found",
+      });
+    }
+    const query = `UPDATE Products SET is_deleted=1 WHERE id=?`;
+    const data = [Product_id];
+
+    connection.query(query, data, (err, response) => {
+      res.status(200).json({
+        success: true,
+        massage: `Succeeded to delete Product with id: ${Product_id}`,
+        response,
+      });
+    });
+  });
+};
+
 module.exports = {
   addNewProduct,
   getAllProduct,
   getProductById,
   updateProductById,
+  deleteProduct,
 };
