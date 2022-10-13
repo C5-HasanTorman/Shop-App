@@ -26,7 +26,6 @@ const login = (req, res) => {
         // create token
         const payload = {
           userId: result[0].id,
-          role_id: result[0].role_id,
           firstName: result[0].firstName,
         };
         const SECRET = process.env.SECRET;
@@ -34,8 +33,8 @@ const login = (req, res) => {
         const token = jwt.sign(payload, SECRET);
         return res.status(200).json({
           success: true,
+          userId: result[0].id,
           token,
-          id: result[0].id,
         });
       } else {
         res.status(404).json({

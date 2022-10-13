@@ -74,4 +74,59 @@ const getProductById = (req, res) => {
   });
 };
 
-module.exports = { addNewProduct, getAllProduct, getProductById };
+// update product By Id
+const updateProductById = (req, res) => {
+  const products_id = req.params.id;
+  const owner_id = req.token.userId;
+  const { title, price, description } = req.body;
+  const query = `SELECT * FROM products WHERE id=? AND is_deleted=0`;
+
+  const data = [products_id, owner_id];
+
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        massage: "Server Error",
+        err: err.message,
+      });
+    }
+    if (!result.length) {
+      return res.status(404).json({
+        success: false,
+        massage: "product is Not Found",
+      });
+    }
+    const query = `UPDATE products SET title=?, price=?, description =? WHERE id=?`;
+    const data = [
+      title || result[0].title,
+      price || result[0].price,
+      description || result[0].description,
+      products_id,
+    ];
+
+    connection.query(query, data, (err, response) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "server error*",
+          err: err,
+        });
+      }
+      if (response.affectedRows) {
+        res.status(201).json({
+          success: true,
+          massage: `The product updated successfuly`,
+          response,
+        });
+      }
+    });
+  });
+};
+
+module.exports = {
+  addNewProduct,
+  getAllProduct,
+  getProductById,
+  updateProductById,
+};
