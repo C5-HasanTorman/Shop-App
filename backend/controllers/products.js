@@ -24,4 +24,24 @@ const addNewProduct = (req, res) => {
   });
 };
 
-module.exports = { addNewProduct };
+// get all Products
+
+const getAllProduct = (req, res) => {
+    const query = `SELECT * FROM Products WHERE is_deleted=0;`;
+    connection.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "server error",
+          err: err,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        massage: "All the items",
+        result: result,
+      });
+    });
+  };
+
+module.exports = { addNewProduct,getAllProduct };
