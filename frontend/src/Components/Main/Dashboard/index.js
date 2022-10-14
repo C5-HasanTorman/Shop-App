@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import AddProduct from "../AddProduct";
+import { Container, Row } from "react-bootstrap";
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <Container>
+      <Row>
+        <AddProduct />
+      </Row>
+    </Container>
+  );
+};
 
-export default Dashboard
+export default Dashboard;
