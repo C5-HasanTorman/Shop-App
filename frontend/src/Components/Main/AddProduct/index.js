@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addItems } from "../../../redux/reducers/products";
 import {
   Button,
   Container,
@@ -8,9 +10,9 @@ import {
   FormGroup,
   Modal,
 } from "react-bootstrap";
-import { useSelector } from "react-redux";
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
   const { token, isLoggedIn } = useSelector((state) => {
     return {
       token: state.users.token,
@@ -26,13 +28,16 @@ const AddProduct = () => {
   const hundleModal = () => setShow(true);
 
   const addNewItem = () => {
+    const Products = {
+      title,
+      description,
+      price,
+    };
     axios
       .post(
         `http://localhost:5000/products`,
         {
-          title,
-          description,
-          price,
+          Products,
         },
         {
           headers: {
@@ -40,7 +45,10 @@ const AddProduct = () => {
           },
         }
       )
-      .then((result) => {})
+      .then((result) => {
+        console.log(result);
+        dispatch(addItems(Products));
+      })
       .catch((err) => {
         console.log(err);
       });
