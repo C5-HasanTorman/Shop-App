@@ -11,6 +11,11 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
       localStorage.setItem("token", JSON.stringify(action.payload));
     },
+    setLogout: (state, action) => {
+      state.token = "";
+      state.isLoggedIn = false;
+      localStorage.clear();
+    },
   },
 });
 
