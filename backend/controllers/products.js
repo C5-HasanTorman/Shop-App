@@ -20,6 +20,7 @@ const addNewProduct = (req, res) => {
       success: true,
       massage: "Product uploaded",
       result: result,
+      userId: owner_id,
     });
   });
 };
