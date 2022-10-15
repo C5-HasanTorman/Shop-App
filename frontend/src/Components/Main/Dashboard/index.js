@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import AddProduct from "../AddProduct";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import ProductPage from "../ProductPage";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
 import { setItems, deleteItem } from "../../../redux/reducers/products";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import EditProduct from "../EditProduct";
 import ImgHead from "../../ImgHead";
 
@@ -15,7 +16,7 @@ const Dashboard = () => {
 
   // ****************************
 
-  const { items, token, userId, isLoggedIn, ownerId } = useSelector((state) => {
+  const { items, token, userId, isLoggedIn } = useSelector((state) => {
     return {
       items: state.products.items,
       token: state.users.token,
@@ -106,18 +107,21 @@ const Dashboard = () => {
                       <></>
                     )}
                     <figure>
-                      <Link to={`/detail/${item.id}`}>
-                        <Card.Img
-                          variant="top"
-                          className="img-item"
-                          src="https://www.educationafter12th.com/wp-content/uploads/2016/06/Mechanical-Engineering-in-india-jobs-eligiblity-syllabus.jpg"
-                        ></Card.Img>
-                      </Link>
+                      <Card.Img
+                        variant="top"
+                        className="img-item"
+                        src="https://www.educationafter12th.com/wp-content/uploads/2016/06/Mechanical-Engineering-in-india-jobs-eligiblity-syllabus.jpg"
+                      ></Card.Img>
                       <figcaption>
                         <p>{item.description} </p>
                       </figcaption>
                     </figure>
-                    <Card.Body className="body-item">
+                    <Card.Body
+                      onClick={() => {
+                        history(`/detail/${item.id}`);
+                      }}
+                      className="body-item"
+                    >
                       <Container className="mb-5 d-flex justify-content-between row-item ">
                         <Card.Title className="title-item">
                           {item.title}

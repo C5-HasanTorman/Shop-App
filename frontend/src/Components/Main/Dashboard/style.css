@@ -15,9 +15,9 @@
   color: red;
   cursor: pointer;
 }
-.img-item{
-    height: 230px;
-    width: 300px;
+.img-item {
+  height: 230px;
+  width: 300px;
 }
 .title-item {
   color: rgb(85, 83, 83);
@@ -55,6 +55,7 @@ span {
   width: 100%;
   border: none;
   border-bottom: 1px solid rgb(212, 208, 208);
+  cursor: pointer;
 }
 
 figure {

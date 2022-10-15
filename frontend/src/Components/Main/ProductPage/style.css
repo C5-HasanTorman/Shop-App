@@ -1,0 +1,29 @@
+.page-con {
+  height: 700px;
+}
+.card-page {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+.img-page {
+  height: 100%;
+}
+.page-title {
+  display: flex;
+  justify-content: start;
+  margin-left: 5px;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #01b2ee;
+}
+.page-des {
+  height: 50%;
+  display: flex;
+  justify-content: start;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  margin-left: 15px;
+  color: gray;
+}

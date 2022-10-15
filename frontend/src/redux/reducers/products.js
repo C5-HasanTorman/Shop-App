@@ -4,7 +4,7 @@ const productSlice = createSlice({
   name: "products",
 
   initialState: {
-    items: [],
+    items: items || [],
   },
 
   reducers: {
@@ -31,5 +31,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { addItems, setItems, deleteItem ,updateItemById} = productSlice.actions;
+export const { addItems, setItems, deleteItem, updateItemById } =
+  productSlice.actions;
 export default productSlice.reducer;
