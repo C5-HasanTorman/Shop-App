@@ -82,7 +82,7 @@ const Login = () => {
                   <Form.Group className="d-flex justify-content-center">
                     <Button
                       className="mt-4"
-                      variant="warning"
+                      variant="primary"
                       onClick={() => {
                         login();
                       }}

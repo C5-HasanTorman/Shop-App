@@ -112,7 +112,7 @@ const Register = () => {
                         addUser();
                       }}
                       className="mt-4"
-                      variant="warning"
+                      variant="primary"
                     >
                       Register
                     </Button>
