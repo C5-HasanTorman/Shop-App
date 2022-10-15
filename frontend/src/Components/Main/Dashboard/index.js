@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./style.css";
 import AddProduct from "../AddProduct";
-import ProductPage from "../ProductPage";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
 import { setItems, deleteItem } from "../../../redux/reducers/products";
@@ -25,6 +24,7 @@ const Dashboard = () => {
       ownerId: state.users.ownerId,
     };
   });
+
   // ****************************
 
   const getItem = () => {
@@ -51,15 +51,11 @@ const Dashboard = () => {
         }
       );
       dispatch(deleteItem(id));
+      getItem();
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(userId, "-----");
-  console.log(isLoggedIn, "+++++");
-
-  console.log(items);
 
   // ****************************
 
@@ -73,7 +69,7 @@ const Dashboard = () => {
     <Container className="mt-5">
       <Row>
         <Col className="col-12">
-          <AddProduct />
+          <AddProduct props={getItem} />
         </Col>
       </Row>
       <Row>
@@ -95,7 +91,11 @@ const Dashboard = () => {
                   <Card className="mt-3 card-item">
                     {isLoggedIn && userId === item.owner_id ? (
                       <Container className="mt-1 d-flex continer-item">
-                        <EditProduct props={item.id} className="editButton" />
+                        <EditProduct
+                          props={item.id}
+                          getItem={getItem}
+                          className="editButton"
+                        />
                         <i
                           onClick={() => {
                             deleteProduct(item.id);
@@ -110,7 +110,10 @@ const Dashboard = () => {
                       <Card.Img
                         variant="top"
                         className="img-item"
-                        src="https://www.educationafter12th.com/wp-content/uploads/2016/06/Mechanical-Engineering-in-india-jobs-eligiblity-syllabus.jpg"
+                        src={
+                          item.img ||
+                          `https://thumbs.dreamstime.com/b/wow-offer-great-sale-price-sign-vector-sale-tag-wow-offer-special-sale-price-sign-advertising-discounts-symbol-shopping-banner-148091001.jpg`
+                        }
                       ></Card.Img>
                       <figcaption>
                         <p>{item.description} </p>

@@ -4,12 +4,13 @@ const productSlice = createSlice({
   name: "products",
 
   initialState: {
-    items: items || [],
+    items: JSON.parse(localStorage.getItem("products")) || [],
   },
 
   reducers: {
     setItems: (state, action) => {
-      state.items = action.payload;
+      state.items = action.payload.reverse();
+      localStorage.setItem("products", JSON.stringify(action.payload));
     },
 
     addItems: (state, action) => {

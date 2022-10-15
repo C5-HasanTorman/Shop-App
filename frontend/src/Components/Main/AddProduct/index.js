@@ -12,7 +12,7 @@ import {
   Modal,
 } from "react-bootstrap";
 
-const AddProduct = () => {
+const AddProduct = ({ props }) => {
   const dispatch = useDispatch();
   const { token, isLoggedIn } = useSelector((state) => {
     return {
@@ -21,19 +21,24 @@ const AddProduct = () => {
     };
   });
 
+  const [media, setMedia] = useState("");
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
+  const [img, setImg] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const handleClose = () => setShow(false);
   const hundleModal = () => setShow(true);
+  console.log(img);
 
   const addNewItem = async () => {
     const Products = {
       title,
       description,
       price,
+      img,
     };
+    console.log(Products);
     try {
       const result = await axios.post(
         `http://localhost:5000/products`,
@@ -46,6 +51,7 @@ const AddProduct = () => {
           },
         }
       );
+      props();
       if (result.data.success) {
         console.log(result);
         dispatch(addItems(Products));
@@ -54,6 +60,24 @@ const AddProduct = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", media);
+    data.append("upload_preset", "media-app");
+    data.append("cloud_name", "hassan1995");
+
+    fetch("https://api.cloudinary.com/v1_1/hassan1995/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setImg(data.url);
+        console.log(data.url);
+      })
+      .catch((err) => console.log(err));
   };
 
   const hundleAddButton = () => {
@@ -100,11 +124,21 @@ const AddProduct = () => {
                   }}
                 ></FormControl>
               </FormGroup>{" "}
-              <FormGroup className="mb-3">
+              <FormGroup className="mb-3 d-flex">
                 <FormControl
                   type="file"
                   placeholder="Product-Img"
+                  onChange={(e) => {
+                    setMedia(e.target.files[0]);
+                  }}
                 ></FormControl>
+                <Button
+                  onClick={() => {
+                    uploadImage();
+                  }}
+                >
+                  Uplode
+                </Button>
               </FormGroup>
             </Form>
           </Modal.Body>

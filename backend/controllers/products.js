@@ -79,7 +79,7 @@ const getProductById = (req, res) => {
 const updateProductById = (req, res) => {
   const products_id = req.params.id;
   const owner_id = req.token.userId;
-  const { title, price, description } = req.body;
+  const { title, price, description, img } = req.body;
   const query = `SELECT * FROM products WHERE id=? AND is_deleted=0`;
 
   const data = [products_id, owner_id];
@@ -98,11 +98,12 @@ const updateProductById = (req, res) => {
         massage: "product is Not Found",
       });
     }
-    const query = `UPDATE products SET title=?, price=?, description =? WHERE id=?`;
+    const query = `UPDATE products SET title=?, price=?, description =? ,img=? WHERE id=?`;
     const data = [
       title || result[0].title,
       price || result[0].price,
       description || result[0].description,
+      img || result[0].img,
       products_id,
     ];
 

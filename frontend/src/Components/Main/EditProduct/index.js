@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-const EditProduct = (props) => {
+const EditProduct = ({ props, getItem }) => {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -53,6 +53,7 @@ const EditProduct = (props) => {
           id,
         })
       );
+      getItem();
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +63,7 @@ const EditProduct = (props) => {
 
   const hundleAddButton = () => {
     handleClose();
-    updateArticle(props.props);
+    updateArticle(props);
   };
   return (
     <Container className=" editContiner">
