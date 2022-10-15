@@ -1,0 +1,47 @@
+.comment-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+}
+.d-comment{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+
+    border-bottom: 1px solid rgb(212, 208, 208);
+
+}
+header {
+  display: flex;
+  justify-content: start;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #01b2ee;
+}
+
+.comment-text{
+    display: flex;
+    justify-content: start;
+    font-size: 1.2rem;
+    gap: 3px;
+}
+.user-col{
+   color: #01b2ee ; 
+}
+
+.commenterPhoto{
+    height: 50px;
+    width: 50px;
+    border-radius: 360px;
+    margin-right: 3px;
+}
+.map-commet{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+
+}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Comment from "../Comment";
 
 const ProductPage = () => {
   // ************************
@@ -70,6 +71,11 @@ const ProductPage = () => {
               {` Price :  ${product.price} $`}{" "}
             </Card.Text>
           </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Comment props={id} />
         </Col>
       </Row>
     </Container>

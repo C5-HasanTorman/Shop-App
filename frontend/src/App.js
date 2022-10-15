@@ -5,7 +5,7 @@ import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Main/Dashboard";
 import Header from "./Components/Header";
-import ProductPage from "./Components/Main/ProductPage";
+import ProductPage from "./Components/ProductPage";
 function App() {
   return (
     <div className="App">

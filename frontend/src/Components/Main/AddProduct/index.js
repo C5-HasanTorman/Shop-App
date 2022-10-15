@@ -29,7 +29,6 @@ const AddProduct = ({ props }) => {
   const [price, setPrice] = useState(0);
   const handleClose = () => setShow(false);
   const hundleModal = () => setShow(true);
-  console.log(img);
 
   const addNewItem = async () => {
     const Products = {
