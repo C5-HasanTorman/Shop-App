@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setOwnerId } from "../../../redux/reducers/users";
 import { addItems } from "../../../redux/reducers/products";
 import {
   Button,
@@ -48,6 +49,7 @@ const AddProduct = () => {
       if (result.data.success) {
         console.log(result);
         dispatch(addItems(Products));
+        dispatch(setOwnerId(result.data.userId));
       }
     } catch (error) {
       console.log(error);
@@ -61,10 +63,10 @@ const AddProduct = () => {
 
   return (
     isLoggedIn && (
-      <Container>
-        <Button variant="warning" onClick={hundleModal}>
+      <Container className="add-item">
+        <Button variant="primary" onClick={hundleModal}>
           {" "}
-          New
+          Add New Product
         </Button>
 
         <Modal show={show} onHide={handleClose}>

@@ -65,7 +65,7 @@ const EditProduct = (props) => {
     updateArticle(props.props);
   };
   return (
-    <Container>
+    <Container className=" editContiner">
       <i onClick={hundleModal} class="fa-solid fa-gear"></i>
 
       <Modal show={show} onHide={handleClose}>

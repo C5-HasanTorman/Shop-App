@@ -6,6 +6,7 @@ import Login from "./Components/Login";
 import Dashboard from "./Components/Main/Dashboard";
 import Header from "./Components/Header";
 import ProductPage from "./Components/Main/ProductPage";
+import ImgHead from "./Components/ImgHead";
 function App() {
   return (
     <div className="App">

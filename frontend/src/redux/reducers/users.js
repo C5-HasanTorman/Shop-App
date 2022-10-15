@@ -5,6 +5,7 @@ const userSlice = createSlice({
     token: JSON.parse(localStorage.getItem("token")) || "",
     isLoggedIn: localStorage.getItem("token") ? true : false,
     userId: JSON.parse(localStorage.getItem("userId")) || "",
+    ownerId: JSON.parse(localStorage.getItem("userId")) || "",
   },
   reducers: {
     setLogin: (state, action) => {
@@ -21,9 +22,12 @@ const userSlice = createSlice({
       state.userId = action.payload;
       localStorage.setItem("userId", JSON.stringify(action.payload));
     },
-    
+    setOwnerId: (state, action) => {
+      state.ownerId = action.payload;
+      localStorage.setItem("ownerId", JSON.stringify(action.payload));
+    },
   },
 });
 
-export const { setLogin, setLogout, setUserId } = userSlice.actions;
+export const { setLogin, setLogout, setUserId,setOwnerId } = userSlice.actions;
 export default userSlice.reducer;

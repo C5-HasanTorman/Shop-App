@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./style.css";
 import AddProduct from "../AddProduct";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
@@ -6,6 +7,7 @@ import { setItems, deleteItem } from "../../../redux/reducers/products";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import EditProduct from "../EditProduct";
+import ImgHead from "../../ImgHead";
 
 const Dashboard = () => {
   const history = useNavigate();
@@ -13,17 +15,13 @@ const Dashboard = () => {
 
   // ****************************
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [productId, setProductId] = useState();
-  const [updateBox, setUpdateBox] = useState(false);
-
-  // ****************************
-  const { items, token } = useSelector((state) => {
+  const { items, token, userId, isLoggedIn, ownerId } = useSelector((state) => {
     return {
       items: state.products.items,
       token: state.users.token,
+      userId: state.users.userId,
+      isLoggedIn: state.users.isLoggedIn,
+      ownerId: state.users.ownerId,
     };
   });
   // ****************************
@@ -57,6 +55,11 @@ const Dashboard = () => {
     }
   };
 
+  console.log(userId, "-----");
+  console.log(isLoggedIn, "+++++");
+
+  console.log(items);
+
   // ****************************
 
   useEffect(() => {
@@ -73,37 +76,64 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row>
-        <Col className="mt-5 d-flex me-5">
-          {items
-            ? items.map((item) => {
-                return (
-                  <Card key={item.id} className="mt-3">
-                    <Link to={`/detail/${item.id}`}>
-                      <Card.Img
-                        variant="top"
-                        src="https://www.educationafter12th.com/wp-content/uploads/2016/06/Mechanical-Engineering-in-india-jobs-eligiblity-syllabus.jpg"
-                      ></Card.Img>
-                    </Link>
-                    <Card.Body>
-                      <Row className="d-flex flex-row">
-                        <Card.Title>{item.title}</Card.Title>
-                        <Card.Text>{`${item.price} $`}</Card.Text>
-                      </Row>
-                      <Card.Text>{item.description}</Card.Text>
+        <Col className="col-12">
+          <ImgHead />
+        </Col>
+      </Row>
 
-                      <i
-                        onClick={() => {
-                          deleteProduct(item.id);
-                        }}
-                        class="fa-regular fa-xmark"
-                      ></i>
-                      <EditProduct props={item.id} />
+      <Row className="d-md-flex ms-5 row-product">
+        {items
+          ? items.map((item, index) => {
+              return (
+                <Col
+                  key={index}
+                  md="6"
+                  lg={"3"}
+                  className="mt-3 d-flex me-5 col-item"
+                >
+                  <Card className="mt-3 card-item">
+                    {isLoggedIn && userId === item.owner_id ? (
+                      <Container className="mt-1 d-flex continer-item">
+                        <EditProduct props={item.id} className="editButton" />
+                        <i
+                          onClick={() => {
+                            deleteProduct(item.id);
+                          }}
+                          class="fa-sharp fa-solid fa-xmark"
+                        ></i>
+                      </Container>
+                    ) : (
+                      <></>
+                    )}
+                    <figure>
+                      <Link to={`/detail/${item.id}`}>
+                        <Card.Img
+                          variant="top"
+                          className="img-item"
+                          src="https://www.educationafter12th.com/wp-content/uploads/2016/06/Mechanical-Engineering-in-india-jobs-eligiblity-syllabus.jpg"
+                        ></Card.Img>
+                      </Link>
+                      <figcaption>
+                        <p>{item.description} </p>
+                      </figcaption>
+                    </figure>
+                    <Card.Body className="body-item">
+                      <Container className="mb-5 d-flex justify-content-between row-item ">
+                        <Card.Title className="title-item">
+                          {item.title}
+                        </Card.Title>
+                      </Container>
+                      <Card.Text className="price-item">
+                        {`${item.price}`}
+                        <span> $</span>
+                      </Card.Text>
+                      <Container></Container>
                     </Card.Body>
                   </Card>
-                );
-              })
-            : []}
-        </Col>
+                </Col>
+              );
+            })
+          : []}
       </Row>
     </Container>
   );
