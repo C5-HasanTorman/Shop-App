@@ -73,60 +73,64 @@ const Comment = ({ props }) => {
   }, []);
 
   return (
-    isLoggedIn && (
-      <Container className="comment-btn">
-        <section className="d-comment">
-          <header>Comments</header>
+    <Container className="comment-btn">
+      <section className="d-comment">
+        <header>Comments</header>
+        {isLoggedIn && (
+          <>
+            <Button variant="primary" onClick={hundleModal}>
+              {" "}
+              Add Comment
+            </Button>
 
-          <Button variant="primary" onClick={hundleModal}>
-            {" "}
-            Add Comment
-          </Button>
-
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header> New Comment </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <FormGroup className="mb-3">
-                  <FormControl
-                    type="text"
-                    placeholder="Comment"
-                    onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                  ></FormControl>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={handleClose}>Close</Button>
-              <Button
-                onClick={() => {
-                  hundleAddButton();
-                }}
-              >
-                Add
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </section>
-        <Container className="mt-5">
-          <br />
-          {comments &&
-            comments.map((ele, index) => {
-              return (
-                <section className="map-commet mt-4">
-                  <img src="https://cdn5.vectorstock.com/i/thumb-large/45/59/profile-photo-placeholder-icon-design-in-gray-vector-37114559.jpg" className="commenterPhoto" />
-                  <p key={ele.id} className="comment-text">
-                    <span className="user-col">User {ele.commenter_id} </span>{" "}
-                    {`:    ${ele.comment}`}
-                  </p>
-                </section>
-              );
-            })}
-        </Container>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header> New Comment </Modal.Header>
+              <Modal.Body>
+                <Form>
+                  <FormGroup className="mb-3">
+                    <FormControl
+                      type="text"
+                      placeholder="Comment"
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                      }}
+                    ></FormControl>
+                  </FormGroup>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={handleClose}>Close</Button>
+                <Button
+                  onClick={() => {
+                    hundleAddButton();
+                  }}
+                >
+                  Add
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </>
+        )}
+      </section>
+      <Container className="mt-5">
+        <br />
+        {comments &&
+          comments.map((ele, index) => {
+            return (
+              <section className="map-commet mt-4">
+                <img
+                  src="https://cdn5.vectorstock.com/i/thumb-large/45/59/profile-photo-placeholder-icon-design-in-gray-vector-37114559.jpg"
+                  className="commenterPhoto"
+                />
+                <p key={ele.id} className="comment-text">
+                  <span className="user-col">User {ele.commenter_id} </span>{" "}
+                  {`:    ${ele.comment}`}
+                </p>
+              </section>
+            );
+          })}
       </Container>
-    )
+    </Container>
   );
 };
 

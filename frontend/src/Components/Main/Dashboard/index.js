@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import EditProduct from "../EditProduct";
 import ImgHead from "../../ImgHead";
+import Favorite from "../../Favorite";
 
 const Dashboard = () => {
   const history = useNavigate();
@@ -130,11 +131,14 @@ const Dashboard = () => {
                           {item.title}
                         </Card.Title>
                       </Container>
-                      <Card.Text className="price-item">
-                        {`${item.price}`}
-                        <span> $</span>
-                      </Card.Text>
-                      <Container></Container>
+                      <Container className="d-flex justify-content-between">
+                        <Favorite props={item.id} />
+
+                        <Card.Text className="price-item">
+                          {`${item.price}`}
+                          <span> $</span>
+                        </Card.Text>
+                      </Container>
                     </Card.Body>
                   </Card>
                 </Col>
