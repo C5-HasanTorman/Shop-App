@@ -23,35 +23,35 @@ const AddProduct = () => {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("unknown");
+  const [price, setPrice] = useState(0);
   const handleClose = () => setShow(false);
   const hundleModal = () => setShow(true);
 
-  const addNewItem = () => {
+  const addNewItem = async () => {
     const Products = {
       title,
       description,
       price,
     };
-    axios
-      .post(
+    try {
+      const result = await axios.post(
         `http://localhost:5000/products`,
-        {
-          Products,
-        },
+
+        Products,
+
         {
           headers: {
             Authorization: `Bearer ${token.token}`,
           },
         }
-      )
-      .then((result) => {
+      );
+      if (result.data.success) {
         console.log(result);
         dispatch(addItems(Products));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const hundleAddButton = () => {

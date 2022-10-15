@@ -12,7 +12,7 @@ import {
   Alert,
 } from "react-bootstrap";
 
-import { setLogin } from "../../redux/reducers/users";
+import { setLogin, setUserId } from "../../redux/reducers/users";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
@@ -34,6 +34,8 @@ const Login = () => {
       });
       if (res) {
         dispatch(setLogin(res.data));
+        dispatch(setUserId(res.data.userId));
+
         setStatus(true);
         setMessage("");
       } else throw Error;
