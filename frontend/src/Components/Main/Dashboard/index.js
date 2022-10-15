@@ -80,6 +80,8 @@ const Dashboard = () => {
       </Row>
 
       <Row className="d-md-flex ms-5 row-product">
+      <h2 className="mt-5 dashbourd-title">New Products </h2>
+
         {items
           ? items.map((item, index) => {
               return (

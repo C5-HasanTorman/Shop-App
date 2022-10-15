@@ -28,7 +28,7 @@ const Header = () => {
       >
         <Container fluid="lg" className="cont-max">
           <Navbar.Brand className="title-head" href="/dashboard">
-            Shop
+            Shop App
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
